@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthVault – Your Personal Health Companion</title>
+  <meta name="description" content="HealthVault helps you track medicines, store health records, manage appointments, and share emergency health info — all in one place." />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f4f8;
+      color: #111;
+    }
+
+    /* NAV */
+    nav {
+      background: white;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1565c0, #1976d2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .logo-text {
+      font-weight: 900;
+      font-size: 18px;
+      color: #111;
+    }
+    .nav-btn {
+      background: #1976d2;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-btn:hover { background: #1565c0; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #1565c0, #1976d2, #42a5f5);
+      color: white;
+      padding: 80px 32px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: clamp(15px, 2.5vw, 18px);
+      opacity: 0.9;
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: white;
+      color: #1976d2;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.4);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+    /* FEATURES */
+    .section {
+      padding: 72px 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
+      color: #111;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      text-align: center;
+      color: #64748b;
+      font-size: 16px;
+      margin-bottom: 48px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    }
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .how-bg { background: white; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      text-align: center;
+    }
+    .step-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1565c0, #42a5f5);
+      color: white;
+      font-weight: 900;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step h3 { font-size: 16px; font-weight: 800; color: #111; margin-bottom: 8px; }
+    .step p { font-size: 14px; color: #64748b; line-height: 1.6; }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #1565c0, #1976d2);
+      color: white;
+      padding: 80px 32px;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .cta p {
+      font-size: 16px;
+      opacity: 0.85;
+      margin-bottom: 40px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #1a1a2e;
+      color: #94a3b8;
+      text-align: center;
+      padding: 24px 32px;
+      font-size: 14px;
+    }
+    footer span { color: #e53935; }
+
+    /* INSTALL INSTRUCTION */
+    .install-info {
+      background: #e3f2fd;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-top: 24px;
+      display: none;
+      text-align: left;
+    }
+    .install-info.show { display: block; }
+    .install-info h4 { color: #1565c0; font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+    .install-info p { color: #1976d2; font-size: 14px; line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="#">
+      <div class="logo-icon">❤️</div>
+      <span class="logo-text">HealthVault</span>
+    </a>
+    <a class="nav-btn" href="https://healthvault-frontend-git-main-code-nova3.vercel.app" target="_blank">Open App</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Your Personal<br/>Health Companion</h1>
+    <p>Track medicines, store health records, manage appointments, and share emergency health info — all in one secure app.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="#download" onclick="showInstall()">
+        📲 Download App
+      </a>
+      <a class="btn-secondary" href="https://healthvault-frontend-git-main-code-nova3.vercel.app" target="_blank">
+        🌐 Use in Browser
+      </a>
+    </div>
+    <div class="install-info" id="installInfo">
+      <h4>How to install HealthVault on your phone</h4>
+      <p>
+        <strong>Android (Chrome):</strong> Open the app URL → tap the 3-dot menu → "Add to Home screen" → Add<br/><br/>
+        <strong>iPhone (Safari):</strong> Open the app URL in Safari → tap Share button → "Add to Home Screen" → Add<br/><br/>
+        The app will appear on your home screen like a native app — no App Store needed!
+      </p>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <div style="background:#f0f4f8;">
+    <div class="section" id="features">
+      <h2 class="section-title">Everything you need in one place</h2>
+      <p class="section-sub">HealthVault keeps your health data organized and accessible anytime.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#e3f2fd;">💊</div>
+          <h3>Medicine Tracker</h3>
+          <p>Add medicines with dosage, time, and duration. Get reminders so you never miss a dose.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#e8f5e9;">📋</div>
+          <h3>Health Records</h3>
+          <p>Store prescriptions, lab reports, and medical history securely in one place.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#f3e5f5;">📅</div>
+          <h3>Appointments</h3>
+          <p>Schedule and track doctor appointments with notes and reminders.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#ffebee;">🆘</div>
+          <h3>Emergency Card</h3>
+          <p>Instantly share your blood group, allergies, and emergency contact with first responders.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#fff8e1;">🔒</div>
+          <h3>Secure & Private</h3>
+          <p>Your data is protected with JWT authentication. Only you can access your information.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#e0f7fa;">📱</div>
+          <h3>Works Offline</h3>
+          <p>Install as a PWA on your phone. Works like a native app — no App Store needed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-bg">
+    <div class="section">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-sub">Get started in minutes.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Create Account</h3>
+          <p>Register with your name, age, blood group, and email.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Add Your Medicines</h3>
+          <p>Enter your medicines with dosage and schedule. Enable reminders.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Store Records</h3>
+          <p>Upload prescriptions and health reports for easy access.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Stay Healthy</h3>
+          <p>Track appointments and share your emergency card when needed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta" id="download">
+    <h2>Start managing your health today</h2>
+    <p>Free to use. No App Store required. Works on any phone.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="#" onclick="showInstall(); return false;">
+        📲 Download App
+      </a>
+      <a class="btn-secondary" href="https://healthvault-frontend-git-main-code-nova3.vercel.app" target="_blank">
+        🌐 Open in Browser
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Made with <span>❤️</span> for better health management &nbsp;|&nbsp; HealthVault v1.0.0</p>
+  </footer>
+
+  <script>
+    function showInstall() {
+      const info = document.getElementById("installInfo");
+      info.classList.toggle("show");
+      if (info.classList.contains("show")) {
+        info.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+  </script>
+
+</body>
+</html>
